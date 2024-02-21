@@ -1,0 +1,12 @@
+# full details found at:
+# https://pylint.pycqa.org/en/latest/user_guide/configuration/index.html
+[MESSAGES CONTROL]
+# place in any pylint errors you wish to ignore in a comma separated list
+disable=
+
+[FORMAT]
+# place in any bad names variable names (e.g. single character, not snake case)
+# you wish to ignore in a comma separated list
+good-names=
+# set the max line length for pylint (79 is flake8 default)
+max-line-length=79
