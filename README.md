@@ -1,6 +1,6 @@
 # Zip-file instructions
 
-The release linked to this repo should contain a zip file that contains a built version of the protocol verifier and its images. 
+The release linked to this repo should contain two zip files. One contains the docker images that the protocol verifier needs, the other contains a built version of the protocol verifier. 
 
 In order for the build to work properly, several dependencies must be met. The system should have the following;
 - Docker and Docker CLI
@@ -13,7 +13,7 @@ To run the built-in tests there are further dependencies;
 - Java 17
 
 To use this file, first extract it to your directory of choice.
-```tar -xvdf munin_1.2.1.tar``` 
+```tar -xvdfz munin_1.2.1.tgz``` 
 The file structure should be as follows;
 
 ```
@@ -31,18 +31,23 @@ The file structure should be as follows;
 └── tests
 ```
 
-Load the docker images.
-```docker load pv_docker_images.tar```
+Extract and load the docker images.
+
+```
+gunzip pv_docker_images.tar.gz
+docker load pv_docker_images.tar
+```
+
 Once loaded, you can remove the tarfile.
 
-Create a docker volume called ConanCache, then extract the Conan Cache tar file to the new volume's file. Due to the way it's saved, it has a large trail of filepath in front of it. Superuser permissions are required to reach this volume - rsync works for this.
+Create a docker volume called ConanCache, then extract the Conan Cache tar file to the new volume's file. Superuser permissions are required to reach this volume - rsync works for this.
 
 ```
 docker volume create ConanCache
-sudo rsync -av /var/lib/docker/volumes/ConanCache/ /{PATH_TO_EXTRACT_DIR}/munin_1.2.1/var/lib/docker/volumes/ConanCache/
+sudo rsync -av /var/lib/docker/volumes/ConanCache/ /{PATH_TO_EXTRACT_DIR}/munin_1.2.1/ConanCache/
 ```
 
-You can now remove the Conan cache directory created from ConanCache.tar as well as ConanCache.tar itself.
+You can now remove the Conan cache directory created from ConanCache.tar as well as ConanCache.tgz itself.
 
 # Testing
 
