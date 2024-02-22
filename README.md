@@ -19,13 +19,12 @@ The file structure should be as follows;
 ```
 .
 ├── bin
-├── ConanCache.tar
+├── ConanCache.tgz
 ├── deploy
 ├── doc
 ├── LICENSE
 ├── metrics
 ├── models
-├── pv_docker_images.tar
 ├── README.adoc
 ├── test_reporting
 └── tests
