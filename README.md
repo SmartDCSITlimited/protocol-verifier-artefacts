@@ -13,7 +13,7 @@ To run the built-in tests and use kafka there are further dependencies;
 - Java 17
 
 To use this file, first extract it to your directory of choice.
-```tar -xvdfz munin_1.2.1.tgz``` 
+```tar -xfz munin_1.2.1.tgz``` 
 The file structure should be as follows;
 
 ```
@@ -42,11 +42,12 @@ Once loaded, you can remove the tarfile.
 Create a docker volume called ConanCache, then extract the Conan Cache tar file to the new volume's file. Superuser permissions are required to reach this volume - rsync works for this.
 
 ```
+tar -xfz ConanCache.tar.gz
 docker volume create ConanCache
-sudo rsync -av /var/lib/docker/volumes/ConanCache/ /{PATH_TO_EXTRACT_DIR}/munin_1.2.1/ConanCache/
+sudo rsync -av /var/lib/docker/volumes/ConanCache/ ConanCache/
 ```
 
-You can now remove the Conan cache directory created from ConanCache.tar as well as ConanCache.tgz itself.
+You can now remove the Conan cache directory created from ConanCache.tgz as well as ConanCache.tgz itself.
 
 # Testing
 
@@ -120,3 +121,15 @@ This will output the logs of the containers to the terminal, effectively prevent
 ```docker compose -f docker-compose.yml logs```
 
 Once running, place a job file to be tested into the incoming directory (by default deploy/incoming, which is created when the containers are run if it isn't present already). Protocol verifier will attempt to process the file and output it in the processed directory (by default deploy/processed). It will log the process in the logs directory, which splits into reception and verifier, and individual containers will output logs in docker.
+
+If using the kafka variant of the protocol verifier, job files will need to be sent to the kafka reception topic. Plus2json, packaged in the repo, manufactures jobfiles for testing purposes and delivers them to kafka topics automatically. The following commands are taken from the benchmark testing script;
+
+```
+BATCH_OF_EVENTS=10000
+EVENTS_PER_SECOND=1000
+TOTAL_EVENTS=100000
+
+RECEPTION_TOPIC="default.AEReception_service0"
+
+echo "../tests/PumlForTesting/PumlRegression/AAExtraJobInvariantSourceJob.puml" | xargs python ../bin/plus2json.pyz --play --msgbroker localhost:9092 --topic $RECEPTION_TOPIC
+```
