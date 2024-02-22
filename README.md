@@ -103,6 +103,8 @@ The protocol verifier requires a config file to be loaded into the config direct
 - ProcessedDirectory, where the protocol verifier places files after verifying them
 - JobDefinitionDirectory, where the templates for acceptable job formats are stored. Protocol verifier compares input jobs to the definitions in this folder to determine whether they are valid.
 
+The kafka variant of protocol verifier uses kafka for file handling instead.
+
 # Operation
 
 In order to run the protocol verifier, first populate the job definitions directory (by default {EXTRACT_DIR}/deploy/config/job_definitions) with job definition files to test against. Add a JSON config file to the deploy/config directory and export its name as an environment variable. This zipfile comes with the benchmark testing job definitions and config still loaded, which work as a default.
@@ -111,10 +113,10 @@ In order to run the protocol verifier, first populate the job definitions direct
 
 Next, spin up the containers via the docker compose files found in the deploy directory.
 
-```docker compose -f docker-compose.kafka.yml up```
+```docker compose -f docker-compose.yml up```
 
 This will output the logs of the containers to the terminal, effectively preventing it from being used for anything else. Use the -d flag to avoid this if the terminal is still needed. If detached, check the logs using docker compose.
 
-```docker compose -f docker-compose.kafka.yml logs```
+```docker compose -f docker-compose.yml logs```
 
 Once running, place a job file to be tested into the incoming directory (by default deploy/incoming, which is created when the containers are run if it isn't present already). Protocol verifier will attempt to process the file and output it in the processed directory (by default deploy/processed). It will log the process in the logs directory, which splits into reception and verifier, and individual containers will output logs in docker.
