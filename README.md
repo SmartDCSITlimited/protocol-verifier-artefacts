@@ -6,7 +6,7 @@ In order for the build to work properly, several dependencies must be met. The s
 - Docker and Docker CLI
 - Containerd
 
-To run the built-in tests there are further dependencies;
+To run the built-in tests and use kafka there are further dependencies;
 - Git
 - Python 3.11
 - kafka-python3 (obtainable via pip)
