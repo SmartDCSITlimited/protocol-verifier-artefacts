@@ -34,7 +34,7 @@ Extract and load the docker images.
 
 ```
 gunzip pv_docker_images.tar.gz
-docker load pv_docker_images.tar
+docker load -i pv_docker_images.tar
 ```
 
 Once loaded, you can remove the tarfile.
@@ -44,7 +44,7 @@ Create a docker volume called ConanCache, then extract the Conan Cache tar file 
 ```
 tar -xfz ConanCache.tar.gz
 docker volume create ConanCache
-sudo rsync -av /var/lib/docker/volumes/ConanCache/ ConanCache/
+sudo rsync -av ConanCache/ /var/lib/docker/volumes/ConanCache/
 ```
 
 You can now remove the Conan cache directory created from ConanCache.tgz as well as ConanCache.tgz itself.
