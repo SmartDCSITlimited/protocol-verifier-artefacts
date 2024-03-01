@@ -33,8 +33,8 @@ The file structure should be as follows;
 Extract and load the docker images.
 
 ```
-gunzip pv_docker_images.tar.gz
-docker load -i pv_docker_images.tar
+gunzip pv_docker_images_1.2.2.tar.gz
+docker load -i pv_docker_images_1.2.2.tar
 ```
 
 Once loaded, you can remove the tarfile.
