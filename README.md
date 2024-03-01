@@ -13,7 +13,7 @@ To run the built-in tests and use kafka there are further dependencies;
 - Java 17
 
 To use this file, first extract it to your directory of choice.
-```tar -xfz munin_1.2.1.tgz``` 
+```tar -xfz munin_1.2.2.tgz``` 
 The file structure should be as follows;
 
 ```
@@ -42,6 +42,7 @@ Once loaded, you can remove the tarfile.
 Create a docker volume called ConanCache, then extract the Conan Cache tar file to the new volume's file. Superuser permissions are required to reach this volume - rsync works for this.
 
 ```
+cd munin_1.2.2/
 tar -xfz ConanCache.tar.gz
 docker volume create ConanCache
 sudo rsync -av ConanCache/ /var/lib/docker/volumes/ConanCache/
@@ -54,18 +55,16 @@ You can now remove the Conan cache directory created from ConanCache.tgz as well
 To test the basic functionality of the protocol verifier, run the regression test featured in the tests directory. Protocol verifier is operated using scripts which are directory-sensitive, so ensure that scripts are run from their directory. The test scripts will generate and clean up test files which it may lose permissions to complete - grant access to the models and deploy directories to avoid this. 
 
 ```
-sudo chmod 777 -R munin_1.2.1/models
-sudo chmod 777 -R munin_1.2.1/deploy
-cd munin_1.2.1/tests
+sudo chown [user]:[group] -R munin_1.2.2/
+cd munin_1.2.2/tests
 ./regression.sh
 ```
 
 This test only runs against a single copy of the verifier and therefore is not performant, nor does it use kafka or test the capabilities of the full stack. In order to test the full functionality of the protocol verifier, the benchmark test in the metrics folder should be used. The test itself may return no useful data but it completing means the full stack was able to start, operate under load and stop.
 
 ```
-sudo chmod 777 -R munin_1.2.1/models
-sudo chmod 777 -R munin_1.2.1/deploy
-cd munin_1.2.1/metrics
+sudo chown [user]:[group] -R munin_1.2.2/
+cd munin_1.2.2/metrics
 ./run_benchmark.sh
 ```
 
