@@ -13,7 +13,7 @@ To run the built-in tests and use kafka there are further dependencies;
 - Java 17
 
 To use this file, first extract it to your directory of choice.
-```tar -xfz munin_1.2.2.tgz``` 
+```tar xfz munin_1.2.2.tgz``` 
 The file structure should be as follows;
 
 ```
@@ -43,7 +43,7 @@ Create a docker volume called ConanCache, then extract the Conan Cache tar file 
 
 ```
 cd munin_1.2.2/
-tar -xfz ConanCache.tar.gz
+tar xfz ConanCache.tar.gz
 docker volume create ConanCache
 sudo rsync -av ConanCache/ /var/lib/docker/volumes/ConanCache/
 ```
